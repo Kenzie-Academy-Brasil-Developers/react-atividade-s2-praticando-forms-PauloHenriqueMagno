@@ -1,0 +1,87 @@
+.Form, .inputs, .Password, .CheckBox{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.Form{
+    width: 100%;
+    max-width: 700px;
+    margin: 25px auto;
+    padding: 5px;
+}
+.Form p{
+    margin-left: 8px;
+}
+.Form a{
+    margin: 5px 8px 0 auto;
+    color: rgb(103, 103, 255);
+}
+
+.inputs{
+    width: 100%;
+    padding: 8px;
+}
+
+input{
+    width: 100%;
+    font-size: 20px;
+    padding: 7px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background-color: rgb(24, 24, 29);
+    color: rgb(209, 209, 209);
+    border: 1px solid rgba(209, 209, 209, 0.555);
+}
+input:focus{
+    outline: none;
+    border: 2px solid rgb(55, 55, 190)
+}
+
+.Password{
+    width: 100%;
+    flex-direction: column;
+}
+.password_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.CheckBox{
+    margin: 10px 25px 5px 10px;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+.CheckBox input{
+    width: 18px;
+    height: 18px;
+}
+.CheckBox input:checked{
+    filter: invert(100%) brightness(.7) contrast(7);
+}
+.CheckBox input:hover{
+    filter: invert(0%);
+}
+.CheckBox label{
+    font-size: 18px;
+}
+
+.submit{
+    width: calc(100% - 16px);
+    margin: auto;
+    background-color: rgb(55, 55, 190);
+    cursor: pointer;
+    border: none;
+}
+
+@media only screen and (min-width: 769px) {
+    .password_container{
+        flex-direction: row;
+    }
+}
