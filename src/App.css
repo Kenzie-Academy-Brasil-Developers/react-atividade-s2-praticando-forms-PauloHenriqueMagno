@@ -6,4 +6,9 @@ html, body{
 body{
     background-color: rgb(24, 24, 29);
     color: rgb(163, 163, 163);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

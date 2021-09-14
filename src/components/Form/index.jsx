@@ -1,10 +1,12 @@
 import "./style.css";
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Form = ({users, setUsers}) =>{
+    const history = useHistory()
     const [email, setEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -41,7 +43,8 @@ const Form = ({users, setUsers}) =>{
             email: data.email,
             password: data.password
         }])
-        console.log(data)
+        alert("Cadastrado com sucesso")
+        history.push("/login")
     }
 
     return (
@@ -96,8 +99,11 @@ const Form = ({users, setUsers}) =>{
                 <p>{errors.acceptTerms?.message}</p>
             </div>
 
-            <input className="submit" type="submit" value="CADASTRAR" />
-            <a href="/">Já possuí uma conta?</a>
+            <input className="Button" type="submit" value="CADASTRAR" />
+            
+            <p className="Link" onClick={()=> history.push('/login')}>
+                Já possuí uma conta?
+            </p>
         </form>
     )
 }

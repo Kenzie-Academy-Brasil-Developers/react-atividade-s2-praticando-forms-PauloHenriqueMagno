@@ -1,0 +1,25 @@
+.Form_login{
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.Form_login h2{
+    font-size: 30px;
+}
+.Form_login input{
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+.Form_login .Button_login{
+    width: 100%;
+    margin: 20px 0 0 0
+}
+.Form_login .Link{
+    margin: 5px 0 0 0;
+    text-align: right;
+    color: rgb(103, 103, 255);
+    cursor: pointer;
+    text-decoration: underline;
+}
