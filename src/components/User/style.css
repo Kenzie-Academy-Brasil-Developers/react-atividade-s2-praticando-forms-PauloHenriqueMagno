@@ -1,0 +1,11 @@
+.User_section{
+    border: 1px solid white;
+    padding: 10px;
+    margin: 15px;
+}
+.User_section h2{
+    font-size: 30px;
+}
+.User_section p{
+    font-size: 20px;
+}

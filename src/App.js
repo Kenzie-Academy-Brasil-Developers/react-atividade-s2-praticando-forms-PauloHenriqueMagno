@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 import Form from './components/Form';
 import Login from './components/Login';
+import User from './components/User';
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([{id:0, userName: "Paulo", fullName: "Paulo Henrique Magno", password: "123", email:'paulo@gmail.com' }]);
 
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         </Route>
 
         <Route exact path="/user/:id">
+          <User users={users} />
         </Route>
 
         <Route path="/">
