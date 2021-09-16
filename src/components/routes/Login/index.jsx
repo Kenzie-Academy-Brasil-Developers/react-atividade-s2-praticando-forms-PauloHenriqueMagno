@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-const Login = ({users}) =>{
+const Login = ({users, setIsLogged}) =>{
     const history = useHistory();
 
     const formSchema = yup.object().shape({
@@ -25,7 +25,7 @@ const Login = ({users}) =>{
         }
 
         const user = users[index];
-
+        setIsLogged(true);
         history.push(`/user/${user.id}`)
     };
 

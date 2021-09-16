@@ -2,27 +2,22 @@ import "./style.css";
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Form = ({users, setUsers}) =>{
     const history = useHistory()
-    const [email, setEmail] = useState("");
-    const [confirmEmail, setConfirmEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const set = (ev, setState) =>{
-        setState(ev.currentTarget.value)
-    }
+    const regex = /^.*(?=.{4})((?=.*[^0-9A-Za-z]){1})(?=.*[0-9])((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/
 
     const formRules = yup.object().shape({
         name: yup.string().required("Nome de usuário obrigatório"),
         fullName: yup.string().required("Nome completo obrigatório"),
-        email: yup.string().required("Email obrigatório"),
-        confirmEmail: yup.string().required("Confirme o email"),
-        password: yup.string().required("Senha obrigatória"),
-        confirmPassword: yup.string().required("Confirme a senha"),
+        email: yup.string().email("Email obrigatório").required("Email obrigatório"),
+        confirmEmail:  yup.string().oneOf([yup.ref("email")], "Emails não são iguais").required('Confirme o email'),
+        password: yup.string().required("Senha obrigatória").matches(regex,
+            "A senha deve conter pelo menos: Uma letra maiúscula, uma letra minuscula, um numero e uma caracter especial"
+        ),
+        confirmPassword: yup.string().oneOf([yup.ref("password")], "Senhas não são iguais").required("Confirme a senha"),
         acceptTerms : yup.bool().oneOf([true], "É necessario concordar com os termos")
     });
 
@@ -34,6 +29,14 @@ const Form = ({users, setUsers}) =>{
     const submit = (data) =>{
         if(data.email!==data.confirmEmail ||
            data.password!==data.confirmPassword){
+            return false
+        }
+        if(users.some(e => e.userName===data.name)){
+            alert("Este nome de usuário já está sendo usado");
+            return false
+        }
+        if(users.some(e => e.email===data.email)){
+            alert("Este email já está sendo usado");
             return false
         }
         setUsers([...users, {
@@ -63,32 +66,30 @@ const Form = ({users, setUsers}) =>{
                 <div>
                     <div className="inputs">
                         <input type="email" placeholder="Endereço de Email*"
-                        {...register("email")} onChange={ev => set(ev, setEmail)} />
+                        {...register("email")} />
                         {errors.email?.message}
                     </div>
                     <div className="inputs">
                         <input type="email" placeholder="Confirme seu Email*"
-                        {...register("confirmEmail")}  onChange={ev => set(ev, setConfirmEmail)} />
+                        {...register("confirmEmail")} />
                         {errors.confirmEmail?.message}
                     </div>
                 </div>
-                {(email!==confirmEmail)? <p>Emails não estão compatíveis</p>: <></>}
             </div>
             
             <div className="Password">
                 <div className="password_container">
                     <div className="inputs">
                         <input type="password" placeholder="Senha*"
-                        {...register("password")} onChange={ev => set(ev, setPassword)} />
+                        {...register("password")} />
                         {errors.password?.message}
                     </div>
                     <div className="inputs">
                         <input type="password" placeholder="Confirme sua senha*"
-                        {...register("confirmPassword")} onChange={ev => set(ev, setConfirmPassword)} />
+                        {...register("confirmPassword")} />
                         {errors.confirmPassword?.message}
                     </div>
                 </div>
-                {(password!==confirmPassword)? <p>As senhas não são compativeis"</p>: <></>}
             </div>
 
             <div className="CheckBox">
@@ -102,7 +103,7 @@ const Form = ({users, setUsers}) =>{
             <input className="Button" type="submit" value="CADASTRAR" />
             
             <p className="Link" onClick={()=> history.push('/login')}>
-                Já possuí uma conta?
+                Já possui uma conta?
             </p>
         </form>
     )
